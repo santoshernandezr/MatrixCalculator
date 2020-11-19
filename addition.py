@@ -4,12 +4,13 @@ def makeMatrix():
     :return: this function returns a list
     """
     rows = int(input("Please input the number of rows you'd like "))
-    columns = int(input("Please input the number of columns you'd like (it has to be the same as your number of rows "))
+    columns = int(input("Please input the number of columns you'd like (it has to be the same as your number of rows) "))
     finalMatrix = []  # List that will include the complete matrix
     for i in range(rows):  # This for loop does a loop for the amount of rows there are
         matrix = []  # List that will contain the rows of the matrix
         for j in range(columns):  # This loop does a loop for the amount of columns there are
-            matrix.append(int(input("Please enter the numbers in the rows of the matrix ")))  # This is appending the values the user is inputing
+            columnNum = int(input("Please enter the first " + str(columns) + " numbers of row " + str(i + 1) + " in the matrix "))
+            matrix.append(columnNum)  # This is appending the values the user is inputing
         finalMatrix.append(matrix)  # Appends each row of the matrix
     return finalMatrix
 

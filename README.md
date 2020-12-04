@@ -1,2 +1,3 @@
 # MatrixCalculator
-This is a matrix calculator, this calculator allows the user to do addition, subtraction, multiplication, and row reduction to matrices. 
+This is a matrix calculator. This calculator allows the user to do operations such as addition, subtraction, and multiplication.
+This matrix calculator also allows the user to obtain the transpose, inverse, and the reduced form of a Matrix. 

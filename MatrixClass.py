@@ -9,6 +9,7 @@ class Matrices:
         self.Matrix = []
         self.Transpose = []
         self.Inverse = []
+        self.RowReduced = []
         
         for i in range(self.rows):  # This for loop does a loop for the amount of rows there are
             matrix = []  # List that will contain the rows of the matrix
@@ -16,7 +17,7 @@ class Matrices:
                 columnNum = int(input("Please enter the " + str(j + 1) + "st/nd/rd/th number of row " + str(i + 1) + " in the matrix "))
                 matrix.append(columnNum)  # This is appending the values the user is inputing
             self.Matrix.append(matrix)  # Appends each row of the matrix
-        print("This is your Matrix: ", self.Matrix)
+        print(self.Matrix)
         
     def transpose(self):
         """
@@ -54,6 +55,13 @@ class Matrices:
             else:
                 self.Inverse = np.linalg.inv(myMatrix)
                 print("This is the inverse of your function: \n", np.around(self.Inverse, decimals = 2))
+
+    def rowReduce(self):
+        """
+        This function will row reduce the users matrix
+        """
+        myMatrix = Matrix(self.Matrix)
+        print("This is the row reduced echelon form of your matrix: \n", myMatrix.rref())
         
 def matrixAddition(firstMatrix, secondMatrix):
     """
@@ -117,14 +125,33 @@ def matrixMultiplication(firstMatrix, secondMatrix):
     else:
         print("This operation cannot be done, make sure the rows of the first matrix is the same as the number of columns in the second matrix")
 
-print("This is your First Matrix")
-first = Matrices(3, 3)
-# first.transpose()
-first.inverse()
-# print("This is your Second Matrix")
-# second = Matrix(2, 3)
-# matrixSubtraction(first.Matrix, second.Matrix)
-# print("This is first.Matrix ", first.Matrix)
-# print("This is second.Matrix ", second.Matrix)
-# matrixAddition(first.Matrix, second.Matrix)
-# matrixMultiplication(first.Matrix, second.Matrix)
+def main():
+    operation = input("What operation would you like to do today? \n (Addition, Subtraction, Multiplication, Row Reduce, Transpose, Inverse) ")
+    if operation == "Row Reduce" or operation == "Transpose" or operation == "Inverse":
+        columns = int(input("Number of columns? "))
+        rows = int(input("Number of rows? "))
+        first = Matrices(columns, rows)
+        first.Matrix
+        if operation == "Row Reduce":
+            first.rowReduce()
+        elif operation == "Transpose":
+            first.transpose()
+        else:
+            first.inverse()
+    else:
+        columns = int(input("Number of columns for your first Matrix? "))
+        rows = int(input("Number of rows for your first Matrix? "))
+        first = Matrices(columns, rows)
+        print("This is your first Matrix: ", first.Matrix)
+        columns2 = int(input("Number of columns for your second Matrix? "))
+        rows2 = int(input("Number of rows for your second Matrix? "))
+        second = Matrices(columns2, rows2)
+        print("This is your second Matrix: ", second.Matrix)
+        if operation == "Addition":
+            matrixAddition(first, second)
+        elif operation == "Subtraction":
+            matrixSubtraction(first, second)
+        else:
+            matrixMultiplication(first, second)
+
+main()

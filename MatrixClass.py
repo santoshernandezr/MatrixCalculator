@@ -1,4 +1,7 @@
-class Matrix:
+from sympy import Matrix
+import numpy as np
+
+class Matrices:
     def __init__(self, columns, rows):
 
         self.rows = rows
@@ -25,21 +28,33 @@ class Matrix:
                     matrix.append(self.Matrix[j][i]) 
             self.Transpose.append(matrix) # Appending the rows into the bigger list we created
         print("This is your transposed matrix: ", self.Transpose)
-
+        
     def inverse(self):
         """ 
         This will find the inverse of a matrix if there is one
         """
-        if self.rows == 2 and self.columns == 2: # 1st case where we have a 2x2 matrix, we can just use the determinant 
-            swapMatrix = [[self.Matrix[1][1], -1 * self.Matrix[0][1]], [-1 * self.Matrix[1][0], self.Matrix[0][0]]] # our swapped matrix
+        if self.rows != self.columns:
+            print("Sorry, this is not a square matrix so it does not have an inverse")
+        elif self.rows == 2 and self.columns == 2: # 1st case where we have a 2x2 matrix, we can just use the determinant 
             determinant = 1/((self.Matrix[1][1] * self.Matrix[0][0]) - (self.Matrix[0][1] * self.Matrix[1][0])) # finding the determinant which is 1/ad-bc
-            for i in range(self.rows):
-                matrix = []
-                for j in range(self.columns):
-                    matrix.append(format(determinant * swapMatrix[i][j], '.2f')) # we format the number to two decimal places
-                self.Inverse.append(matrix)
-            print("This is the inverse of your matrix: ", self.Inverse)
-
+            if determinant != 0:
+                swapMatrix = [[self.Matrix[1][1], -1 * self.Matrix[0][1]], [-1 * self.Matrix[1][0], self.Matrix[0][0]]] # our swapped matrix
+                for i in range(self.rows):
+                    matrix = []
+                    for j in range(self.columns):
+                        matrix.append(format(determinant * swapMatrix[i][j], '.2f')) # we format the number to two decimal places
+                    self.Inverse.append(matrix)
+                print("This is the inverse of your matrix: ", self.Inverse)
+            else:
+                print("Sorry, the determinant is 0 and we cannot divide by 0.")
+        else:
+            myMatrix = np.array(self.Matrix)
+            if np.linalg.det(myMatrix) == 0:
+                print("This matrix has a determinant of 0, meaning it has to inverse")
+            else:
+                self.Inverse = np.linalg.inv(myMatrix)
+                print("This is the inverse of your function: \n", np.around(self.Inverse, decimals = 2))
+        
 def matrixAddition(firstMatrix, secondMatrix):
     """
     This function adds matrices of same dimensions
@@ -103,7 +118,7 @@ def matrixMultiplication(firstMatrix, secondMatrix):
         print("This operation cannot be done, make sure the rows of the first matrix is the same as the number of columns in the second matrix")
 
 print("This is your First Matrix")
-first = Matrix(2, 2)
+first = Matrices(3, 3)
 # first.transpose()
 first.inverse()
 # print("This is your Second Matrix")

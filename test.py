@@ -2,7 +2,7 @@ from sympy import Matrix
 import numpy as np
 
 class Matrices:
-    def __init__(self, myMatrix, columns, rows):
+    def __init__(self, columns, rows):
 
         self.rows = rows
         self.columns = columns
@@ -11,16 +11,13 @@ class Matrices:
         self.Inverse = []
         self.RowReduced = []
         
-        columns = []
-        for i in range(1, len(myMatrix) + 1):
-            if i % self.columns == 0:
-                columns.append(myMatrix[i-1])
-                self.Matrix.append(columns)
-                columns = []
-            else:
-                columns.append(myMatrix[i-1])
-        
-        print("This is my matrix: ", self.Matrix)
+        for i in range(self.rows):  # This for loop does a loop for the amount of rows there are
+            matrix = []  # List that will contain the rows of the matrix
+            for j in range(self.columns):  # This loop does a loop for the amount of columns there are
+                columnNum = int(input("Please enter the " + str(j + 1) + "st/nd/rd/th number of row " + str(i + 1) + " in the matrix "))
+                matrix.append(columnNum)  # This is appending the values the user is inputing
+            self.Matrix.append(matrix)  # Appends each row of the matrix
+        print(self.Matrix)
         
     def transpose(self):
         """
@@ -71,9 +68,7 @@ class Matrices:
         This function will row reduce the users matrix
         """
         myMatrix = Matrix(self.Matrix)
-        myMatrix = myMatrix.rref()
-        print("This is the row reduced echelon form of your matrix: \n", myMatrix)
-        return myMatrix[0]
+        print("This is the row reduced echelon form of your matrix: \n", myMatrix.rref())
         
 def matrixAddition(firstMatrix, secondMatrix):
     """

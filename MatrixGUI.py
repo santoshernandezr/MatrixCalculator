@@ -41,6 +41,10 @@ class TransposeWindow(Screen):
     transRows = ObjectProperty(None)
 
     def makeTransposeGrid(self):
+        """ 
+        This function will make the Transposed Grid and check if the user left something blank.
+        If they do it will warn them, if not it will call makeMatrix 
+        """
         if self.transCols.text == "" or self.transRows.text == "":
             errorModal('You left something blank. Please fill everything out.')
         else:
@@ -55,6 +59,10 @@ class InverseWindow(Screen):
     invRows = ObjectProperty(None)
 
     def makeInvGrid(self):
+        """
+        This function will make the Inverse Grid and check if the user left something blank or if the matrix is not a square matrix.
+        If something is blank or it's not a square matrix then it will warn them. If everything is fine then it will call makeMatrix
+        """
         if self.invCols.text == "" or self.invRows.text == "":
             errorModal('You left something blank. Please fill everything out.')
         elif int(self.invCols.text) != int(self.invRows.text):
@@ -71,6 +79,9 @@ class RowReduceWindow(Screen):
     reduceRows = ObjectProperty(None)
 
     def makeRowReduceGrid(self):
+        """
+        This function will make the Row Reduce Grid.
+        """
         makeMatrix(int(self.reduceCols.text), int(self.reduceRows.text), "Row Reduce")
         print(self.reduceCols.text, self.reduceRows.text)
         self.reduceCols.text = ""
@@ -83,6 +94,10 @@ class WindowManager(ScreenManager):
     pass
 
 def getText(userInputs, myCols, myRows, operation):
+    """ 
+    This function will iterate through the users inputs and make a matrix so we can do operations.
+    If the user left something blank it will warn them and they will get the oportunity to go back and change their matrix.
+    """
     matrix = []
     for nums in userInputs:
         if nums.text == "":
@@ -117,6 +132,9 @@ def getText(userInputs, myCols, myRows, operation):
             getResult(myCols, myRows, mainMatrix)
 
 def getResult(myCols, myRows, myMatrix):
+    """
+    This function will make the popup with the results of whatever operation they did
+    """
     layout = GridLayout(cols = 1)
     inside = GridLayout(cols = myCols)
     for matrix in myMatrix:
@@ -138,6 +156,10 @@ def getResult(myCols, myRows, myMatrix):
     popupWindow.open()
 
 def makeMatrix(myCols, myRows, operation):
+    """ 
+    This function will take in the users input of columns, rows, and the operation they are doing. 
+    It will make a grid that will represent the Matrix and allow the user to input their matrix.
+    """
     userInputs = []
     layout = GridLayout(cols = 1)
     inside = GridLayout(cols = myCols)
@@ -163,6 +185,9 @@ def makeMatrix(myCols, myRows, operation):
     popupWindow.open()
 
 def errorModal(msg):
+    """
+    This function will make a popup with the message of the users choice
+    """
     box = BoxLayout(orientation = "vertical")
     box.add_widget(Label(text = msg))
     closeBtn = Button(text = 'Close', size_hint = (1, 0.3))

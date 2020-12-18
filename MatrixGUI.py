@@ -10,31 +10,11 @@ from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
-from MatrixClass import Matrices
+from MatrixClass import Matrices, matrixAddition, matrixSubtraction, matrixMultiplication
 
 
 class MainWindow(Screen):
     pass
-
-class AdditionWindow(Screen):
-    colsMatrix1 = ObjectProperty(None)
-    rowsMatrix1 = ObjectProperty(None)
-    colsMatrix2 = ObjectProperty(None)
-    rowsMatrix2 = ObjectProperty(None)
-
-    def makeAddGrid(self):
-        if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
-            errorModal('You left something blank. Please fill everything out.')
-        elif int(self.colsMatrix1.text) != int(self.colsMatrix2.text) or int(self.rowsMatrix1.text) != int(self.rowsMatrix2.text):
-            errorModal('In order to add matrices they have to be the same \ndimension. Re-enter new dimensions.')
-        else:
-            makeMatrix(int(self.colsMatrix1.text), int(self.rowsMatrix1.text), "Add")
-
-        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
-        self.colsMatrix1.text = ""
-        self.rowsMatrix1.text = ""
-        self.colsMatrix2.text = ""
-        self.rowsMatrix2.text = ""
 
 class TransposeWindow(Screen):
     transCols = ObjectProperty(None)
@@ -49,8 +29,7 @@ class TransposeWindow(Screen):
             errorModal('You left something blank. Please fill everything out.')
         else:
             makeMatrix(int(self.transCols.text), int(self.transRows.text), "Transpose")
-
-        print(self.transCols.text, self.transRows.text)
+    
         self.transCols.text = ""
         self.transRows.text = ""
 
@@ -87,15 +66,133 @@ class RowReduceWindow(Screen):
         self.reduceCols.text = ""
         self.reduceRows.text = ""
 
+class AdditionWindow(Screen):
+    colsMatrix1 = ObjectProperty(None)
+    rowsMatrix1 = ObjectProperty(None)
+    colsMatrix2 = ObjectProperty(None)
+    rowsMatrix2 = ObjectProperty(None)
+
+    def makeAddGrid(self):
+        if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
+            errorModal('You left something blank. Please fill everything out.')
+        elif int(self.colsMatrix1.text) != int(self.colsMatrix2.text) or int(self.rowsMatrix1.text) != int(self.rowsMatrix2.text):
+            errorModal('In order to add matrices they have to be the same \ndimension. Re-enter new dimensions.')
+        else:
+            makeDoubleMatrix(None, int(self.colsMatrix1.text), int(self.rowsMatrix1.text), None, None, "First Matrix", True, False, False)
+
+        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
+        self.colsMatrix1.text = ""
+        self.rowsMatrix1.text = ""
+        self.colsMatrix2.text = ""
+        self.rowsMatrix2.text = ""
+
+class SubtractionWindow(Screen):
+    colsMatrix1 = ObjectProperty(None)
+    rowsMatrix1 = ObjectProperty(None)
+    colsMatrix2 = ObjectProperty(None)
+    rowsMatrix2 = ObjectProperty(None)
+
+    def makeSubGrid(self):
+        if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
+            errorModal('You left something blank. Please fill everything out.')
+        elif int(self.colsMatrix1.text) != int(self.colsMatrix2.text) or int(self.rowsMatrix1.text) != int(self.rowsMatrix2.text):
+            errorModal('In order to subtract matrices they have to be the same \ndimension. Re-enter new dimensions.')
+        else:
+            makeDoubleMatrix(None, int(self.colsMatrix1.text), int(self.rowsMatrix1.text), None, None, "First Matrix", False, True, False)
+
+        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
+        self.colsMatrix1.text = ""
+        self.rowsMatrix1.text = ""
+        self.colsMatrix2.text = ""
+        self.rowsMatrix2.text = ""
+
+class MultiplicationWindow(Screen):
+    colsMatrix1 = ObjectProperty(None)
+    rowsMatrix1 = ObjectProperty(None)
+    colsMatrix2 = ObjectProperty(None)
+    rowsMatrix2 = ObjectProperty(None)
+
+    def makeMultGrid(self):
+        if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
+            errorModal('You left something blank. Please fill everything out.')
+        elif int(self.colsMatrix1.text) != int(self.rowsMatrix2.text):
+            errorModal("The columns of the first matrix has to be equal \nto the rows in the second Matrix.")
+        else:
+            makeDoubleMatrix(None, int(self.colsMatrix1.text), int(self.rowsMatrix1.text), int(self.colsMatrix2.text), int(self.rowsMatrix2.text), "First Matrix", False, False, True)
+
+        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
+        self.colsMatrix1.text = ""
+        self.rowsMatrix1.text = ""
+        self.colsMatrix2.text = ""
+        self.rowsMatrix2.text = ""
+
 class ThirdWindow(Screen):
     pass
 
 class WindowManager(ScreenManager):
     pass
 
-def getText(userInputs, myCols, myRows, operation):
+def makeDoubleMatrix(matrix, myCols, myRows, myCols1, myRows1, operation, add, sub, mult):
+    """ 
+    This function will take in the users input of columns, rows, and the operation they are doing. 
+    It will make a grid that will represent the Matrix and allow the user to input their matrix.
+    """
+    if mult == True:
+        if operation == "First Matrix":
+            userInputs = []
+            layout = GridLayout(cols = 1)
+            inside = GridLayout(cols = myCols)
+            for i in range(myRows * myCols):
+                gridNums = TextInput(text = "")
+                userInputs.append(gridNums)
+                inside.add_widget(gridNums)
+        else:
+            userInputs = []
+            layout = GridLayout(cols = 1)
+            inside = GridLayout(cols = myCols1)
+            for i in range(myRows1 * myCols1):
+                gridNums = TextInput(text = "")
+                userInputs.append(gridNums)
+                inside.add_widget(gridNums)
+    else: 
+        userInputs = []
+        layout = GridLayout(cols = 1)
+        inside = GridLayout(cols = myCols)
+        for i in range(myRows * myCols):
+            gridNums = TextInput(text = "")
+            userInputs.append(gridNums)
+            inside.add_widget(gridNums)
+
+    layout.add_widget(inside)
+    closeBtn = Button(text = operation, size_hint = (1, 0.3))
+
+    if add == True:
+        if operation == "First Matrix":
+            closeBtn.bind(on_press = lambda x: getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, None, operation, True, False, False))
+        else:
+            closeBtn.bind(on_press = lambda x: getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, matrix, operation, True, False, False))
+    elif sub == True:
+        if operation == "First Matrix":
+            closeBtn.bind(on_press = lambda x: getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, None, operation, False, True, False))
+        else:
+            closeBtn.bind(on_press = lambda x: getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, matrix, operation, False, True, False))
+    elif mult == True:
+        if operation == "First Matrix":
+            closeBtn.bind(on_press = lambda x: getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, None, operation, False, False, True))
+        else:
+            closeBtn.bind(on_press = lambda x: getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, matrix, operation, False, False, True))
+
+    layout.add_widget(closeBtn)
+    box = BoxLayout(orientation = "horizontal")
+    box.add_widget(layout)
+    popupWindow = Popup(title = "Your first Matrix", content = box, auto_dismiss = True,
+                        size_hint = (None, None), size = (400, 400))
+    popupWindow.open()
+
+def getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, secondMatrix, operation, add, sub, mult):
     """ 
     This function will iterate through the users inputs and make a matrix so we can do operations.
+    This function will only take care of the following operations: addition, subtraction, and multiplication.
     If the user left something blank it will warn them and they will get the oportunity to go back and change their matrix.
     """
     matrix = []
@@ -104,9 +201,51 @@ def getText(userInputs, myCols, myRows, operation):
             break
         else:
             matrix.append(int(nums.text))
-        print("This is the text: ", nums.text)
-    print("This is my matrix: ", matrix)
-    print("This is the length of the matrix: ", len(matrix))
+    if mult == True:
+        if secondMatrix == None:
+            if len(matrix) != (myCols * myRows):
+                errorModal('You left something blank. Please fill everything out.')
+            else:
+                makeDoubleMatrix(matrix, myCols, myRows, myCols1, myRows1, "Multiply", False, False, True)
+        else:
+            if len(matrix) != (myCols1 * myRows1):
+                errorModal('You left something blank. Please fill everything out.')
+            else:
+                first = Matrices(secondMatrix, myCols, myRows)
+                second = Matrices(matrix, myCols1, myRows1)
+                getResult(myCols1, myRows, matrixMultiplication(first.Matrix, second.Matrix))
+    else:
+        if len(matrix) != (myCols * myRows):
+            errorModal('You left something blank. Please fill everything out.')
+        else:
+            if add == True:
+                if operation == "First Matrix":
+                    makeDoubleMatrix(matrix, myCols, myRows, None, None, "Add", True, False, False)
+                else:
+                    first = Matrices(secondMatrix, myCols, myRows)
+                    second = Matrices(matrix, myCols, myRows)
+                    getResult(myCols, myRows, matrixAddition(first.Matrix, second.Matrix))
+            
+            if sub == True:
+                if operation == "First Matrix":
+                    makeDoubleMatrix(matrix, myCols, myRows, None, None, "Subtract", False, True, False)
+                else:
+                    first = Matrices(secondMatrix, myCols, myRows)
+                    second = Matrices(matrix, myCols, myRows)
+                    getResult(myCols, myRows, matrixSubtraction(first.Matrix, second.Matrix))
+
+def getMatrix(userInputs, myCols, myRows, operation):
+    """ 
+    This function will iterate through the users inputs and make a matrix so we can do operations.
+    This function will only take care of the following operations: transpose, inverse, Row Reduction.
+    If the user left something blank it will warn them and they will get the oportunity to go back and change their matrix.
+    """
+    matrix = []
+    for nums in userInputs:
+        if nums.text == "":
+            break
+        else:
+            matrix.append(int(nums.text))
     if len(matrix) != (myCols * myRows):
         errorModal('You left something blank. Please fill everything out.')
     else:
@@ -164,7 +303,7 @@ def makeMatrix(myCols, myRows, operation):
     layout = GridLayout(cols = 1)
     inside = GridLayout(cols = myCols)
     for i in range(myRows * myCols):
-        gridNums = TextInput(text = "", id = str(i))
+        gridNums = TextInput(text = "")
         userInputs.append(gridNums)
         inside.add_widget(gridNums)
     
@@ -173,7 +312,7 @@ def makeMatrix(myCols, myRows, operation):
     layout.add_widget(inside)
 
     closeBtn = Button(text = operation, size_hint = (1, 0.3))
-    closeBtn.bind(on_press = lambda x: getText(userInputs, myCols, myRows, operation))
+    closeBtn.bind(on_press = lambda x: getMatrix(userInputs, myCols, myRows, operation))
     layout.add_widget(closeBtn)
 
     box = BoxLayout(orientation = "horizontal")

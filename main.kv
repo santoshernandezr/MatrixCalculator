@@ -4,6 +4,8 @@ WindowManager:
     TransposeWindow:
     RowReduceWindow:
     AdditionWindow:
+    SubtractionWindow:
+    MultiplicationWindow:
     ThirdWindow:
 
 <MainWindow>:
@@ -29,14 +31,14 @@ WindowManager:
             pos_hint: {"x": 0.17, "y": 0.4}
             size_hint: 0.2, 0.2
             on_release: 
-                app.root.current = "addition"
+                app.root.current = "subtraction"
                 root.manager.transition.direction = "left"
         Button:
             text: "Multiplication"
             pos_hint: {"x": 0.17, "y": 0.1}
             size_hint: 0.2, 0.2
             on_release: 
-                app.root.current = "addition"
+                app.root.current = "multiplication"
                 root.manager.transition.direction = "left"
         Button: 
             text: "Row Reduce \nEchelon Form"
@@ -272,7 +274,7 @@ WindowManager:
 
         TextInput:
             id: colsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 156 ** 4
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
             multiline: False
             pos_hint: {"x": 0.5, "top": 0.5}
             size_hint: 0.4, 0.06
@@ -301,6 +303,172 @@ WindowManager:
             size_hint: 0.2, 0.2
             pos_hint: {"x": 0.8}
             on_press: root.makeAddGrid()
+            on_release: 
+                app.root.current = "last"
+                root.manager.transition.direction = "left"
+
+<SubtractionWindow>:
+    name: "subtraction"
+
+    colsMatrix1: colsMatrix1
+    rowsMatrix1: rowsMatrix1
+    colsMatrix2: colsMatrix2
+    rowsMatrix2: rowsMatrix2
+
+    FloatLayout:
+        cols: 1
+        FloatLayout:
+            cols: 2
+            Label: 
+                pos_hint: {"y": 0.45}
+                text: "MATRIX CALCULATOR"
+
+        Label:
+            text: "Columns of 1st Matrix: "
+            size_hint: 0.4, .12
+            pos_hint: {"x": 0.15, "top": 0.83}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: colsMatrix1
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.8}
+            size_hint: 0.4, 0.06
+
+        Label:
+            text: "Rows of 1st Matrix: "
+            size_hint: 0.4, .1
+            pos_hint: {"x": 0.17, "top": 0.67}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: rowsMatrix1
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.65}
+            size_hint: 0.4, 0.06
+
+        Label:
+            text: "Columns of 2st Matrix: "
+            size_hint: 0.4, .12
+            pos_hint: {"x": 0.15, "top": 0.53}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: colsMatrix2
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.5}
+            size_hint: 0.4, 0.06
+
+        Label:
+            text: "Rows of 1st Matrix: "
+            size_hint: 0.4, .1
+            pos_hint: {"x": 0.17, "top": 0.37}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: rowsMatrix2
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.35}
+            size_hint: 0.4, 0.06
+            
+        Button: 
+            text: "Go Back"
+            size_hint: 0.2, 0.2
+            on_release: 
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+        Button: 
+            text: "Go!"
+            size_hint: 0.2, 0.2
+            pos_hint: {"x": 0.8}
+            on_press: root.makeSubGrid()
+            on_release: 
+                app.root.current = "last"
+                root.manager.transition.direction = "left"
+
+<MultiplicationWindow>:
+    name: "multiplication"
+
+    colsMatrix1: colsMatrix1
+    rowsMatrix1: rowsMatrix1
+    colsMatrix2: colsMatrix2
+    rowsMatrix2: rowsMatrix2
+
+    FloatLayout:
+        cols: 1
+        FloatLayout:
+            cols: 2
+            Label: 
+                pos_hint: {"y": 0.45}
+                text: "MATRIX CALCULATOR"
+
+        Label:
+            text: "Columns of 1st Matrix: "
+            size_hint: 0.4, .12
+            pos_hint: {"x": 0.15, "top": 0.83}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: colsMatrix1
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.8}
+            size_hint: 0.4, 0.06
+
+        Label:
+            text: "Rows of 1st Matrix: "
+            size_hint: 0.4, .1
+            pos_hint: {"x": 0.17, "top": 0.67}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: rowsMatrix1
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.65}
+            size_hint: 0.4, 0.06
+
+        Label:
+            text: "Columns of 2st Matrix: "
+            size_hint: 0.4, .12
+            pos_hint: {"x": 0.15, "top": 0.53}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: colsMatrix2
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.5}
+            size_hint: 0.4, 0.06
+
+        Label:
+            text: "Rows of 1st Matrix: "
+            size_hint: 0.4, .1
+            pos_hint: {"x": 0.17, "top": 0.37}
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+
+        TextInput:
+            id: rowsMatrix2
+            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
+            multiline: False
+            pos_hint: {"x": 0.5, "top": 0.35}
+            size_hint: 0.4, 0.06
+            
+        Button: 
+            text: "Go Back"
+            size_hint: 0.2, 0.2
+            on_release: 
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+        Button: 
+            text: "Go!"
+            size_hint: 0.2, 0.2
+            pos_hint: {"x": 0.8}
+            on_press: root.makeMultGrid()
             on_release: 
                 app.root.current = "last"
                 root.manager.transition.direction = "left"

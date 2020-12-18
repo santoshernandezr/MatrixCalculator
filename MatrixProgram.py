@@ -121,10 +121,10 @@ def matrixMultiplication(firstMatrix, secondMatrix):
         finalMatrix = []
         for y in range(len(firstMatrix)): # 2
             currentMatrix = []
-            for i in range(len(firstMatrix)):
+            for i in range(len(secondMatrix[0])):
                 currentSum = 0
                 for j in range(len(secondMatrix)):
-                    currentSum += secondMatrix[j][y] * firstMatrix[i][j]
+                    currentSum += secondMatrix[j][i] * firstMatrix[y][j]
                 currentMatrix.append(currentSum)
                 print("This is my current matrix: " + str(currentMatrix))
             finalMatrix.append(currentMatrix)
@@ -132,37 +132,40 @@ def matrixMultiplication(firstMatrix, secondMatrix):
     else:
         print("This operation cannot be done, make sure the rows of the first matrix is the same as the number of columns in the second matrix")
 
-# first = Matrices(3, 3)
-# first.inverse()
+# first = Matrices(3, 2)
+# second = Matrices(4, 3)
+
+# matrixMultiplication(first.Matrix, second.Matrix)
+# # first.inverse()
 
 
-# def main():
-#     operation = input("What operation would you like to do today? \n (Addition, Subtraction, Multiplication, Row Reduce, Transpose, Inverse) ")
-#     if operation == "Row Reduce" or operation == "Transpose" or operation == "Inverse":
-#         columns = int(input("Number of columns? "))
-#         rows = int(input("Number of rows? "))
-#         first = Matrices(columns, rows)
-#         first.Matrix
-#         if operation == "Row Reduce":
-#             first.rowReduce()
-#         elif operation == "Transpose":
-#             first.transpose()
-#         else:
-#             first.inverse()
-#     else:
-#         columns = int(input("Number of columns for your first Matrix? "))
-#         rows = int(input("Number of rows for your first Matrix? "))
-#         first = Matrices(columns, rows)
-#         print("This is your first Matrix: ", first.Matrix)
-#         columns2 = int(input("Number of columns for your second Matrix? "))
-#         rows2 = int(input("Number of rows for your second Matrix? "))
-#         second = Matrices(columns2, rows2)
-#         print("This is your second Matrix: ", second.Matrix)
-#         if operation == "Addition":
-#             matrixAddition(first, second)
-#         elif operation == "Subtraction":
-#             matrixSubtraction(first, second)
-#         else:
-#             matrixMultiplication(first, second)
+def main():
+    operation = input("What operation would you like to do today? \n (Addition, Subtraction, Multiplication, Row Reduce, Transpose, Inverse) ")
+    if operation == "Row Reduce" or operation == "Transpose" or operation == "Inverse":
+        columns = int(input("Number of columns? "))
+        rows = int(input("Number of rows? "))
+        first = Matrices(columns, rows)
+        first.Matrix
+        if operation == "Row Reduce":
+            first.rowReduce()
+        elif operation == "Transpose":
+            first.transpose()
+        else:
+            first.inverse()
+    else:
+        columns = int(input("Number of columns for your first Matrix? "))
+        rows = int(input("Number of rows for your first Matrix? "))
+        first = Matrices(columns, rows)
+        print("This is your first Matrix: ", first.Matrix)
+        columns2 = int(input("Number of columns for your second Matrix? "))
+        rows2 = int(input("Number of rows for your second Matrix? "))
+        second = Matrices(columns2, rows2)
+        print("This is your second Matrix: ", second.Matrix)
+        if operation == "Addition":
+            matrixAddition(first, second)
+        elif operation == "Subtraction":
+            matrixSubtraction(first, second)
+        else:
+            matrixMultiplication(first, second)
 
-# main()
+main()

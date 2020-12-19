@@ -1,3 +1,5 @@
+#:import utils kivy.utils
+
 WindowManager:
     MainWindow:
     InverseWindow:
@@ -10,72 +12,83 @@ WindowManager:
 
 <MainWindow>:
     name: "main"
-
+    Image:
+        canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
     FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
-
-        Button:
-            text: "Addition"
-            pos_hint: {"x": 0.17, "y": 0.7}
-            size_hint: 0.2, 0.2
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            font_name: "Rubik"
+            color: utils.get_color_from_hex("#FCF6F5FF")
+            font_size: self.width/20
+        ImageButton:
+            source: "images/addIcon.png"
+            pos_hint: {"center_x": .25, "center_y": .75}
+            size_hint: 1, 1
             on_release: 
                 app.root.current = "addition"
                 root.manager.transition.direction = "left"
-        Button:
-            text: "Subtraction"
-            pos_hint: {"x": 0.17, "y": 0.4}
-            size_hint: 0.2, 0.2
+        ImageButton:
+            source: "images/minusIcon.png"
+            pos_hint: {"center_x": .25, "center_y": .45}
+            size_hint: 0.35, 0.15
             on_release: 
                 app.root.current = "subtraction"
                 root.manager.transition.direction = "left"
-        Button:
-            text: "Multiplication"
-            pos_hint: {"x": 0.17, "y": 0.1}
-            size_hint: 0.2, 0.2
+        ImageButton:
+            source: "images/multiplicationIcon.png"
+            pos_hint: {"center_x": .25, "center_y": .15}
+            size_hint: 0.35, 0.15
             on_release: 
                 app.root.current = "multiplication"
                 root.manager.transition.direction = "left"
-        Button: 
-            text: "Row Reduce \nEchelon Form"
-            pos_hint: {"x": 0.63, "y": 0.7}
-            size_hint: 0.2, 0.2
+        ImageButton:
+            source: "images/RREFIcon.png"
+            pos_hint: {"center_x": .75, "center_y": .75}
+            size_hint: 0.35, 0.15
             on_release: 
                 app.root.current = "RowReduce"
                 root.manager.transition.direction = "left"
-        Button:
-            text: "Transpose"
-            pos_hint: {"x": 0.63, "y": 0.4}
-            size_hint: 0.2, 0.2
+        ImageButton:
+            source: "images/transposeIcon.png"
+            pos_hint: {"center_x": .75, "center_y": .45}
+            size_hint: 0.35, 0.15
             on_release: 
                 app.root.current = "transpose"
                 root.manager.transition.direction = "left"
-        Button:
-            text: "Inverse"
-            pos_hint: {"x": 0.63, "y": 0.1}
-            size_hint: 0.2, 0.2
+        ImageButton:
+            source: "images/inverseIcon.png"
+            pos_hint: {"center_x": .75, "center_y": .15}
+            size_hint: 0.35, 0.15
             on_release: 
                 app.root.current = "inverse"
                 root.manager.transition.direction = "left"
 
 <InverseWindow>:
     name: "inverse"
-
     invCols: invCols
     invRows: invRows
 
+    Image:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
     FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
-
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            # font_name: "Rubik"
+            font_name: "Pacifico"
+            color: utils.get_color_from_hex("#0390bb")
+            font_size: self.width/20
         Label:
             text: "Columns:"
             size_hint: 0.4, .12
@@ -118,18 +131,24 @@ WindowManager:
 
 <TransposeWindow>:
     name: "transpose"
-
     transCols: transCols
     transRows: transRows
 
-    FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
+    Image:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
 
+    FloatLayout:
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            # font_name: "Rubik"
+            font_name: "Pacifico"
+            color: utils.get_color_from_hex("#0390bb")
+            font_size: self.width/20
         Label:
             text: "Columns:"
             size_hint: 0.4, .12
@@ -172,18 +191,24 @@ WindowManager:
 
 <RowReduceWindow>:
     name: "RowReduce"
-
     reduceCols: reduceCols
     reduceRows: reduceRows
 
-    FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
+    Image:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
 
+    FloatLayout:
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            # font_name: "Rubik"
+            font_name: "Pacifico"
+            color: utils.get_color_from_hex("#0390bb")
+            font_size: self.width/20
         Label:
             text: "Columns:"
             size_hint: 0.4, .12
@@ -226,20 +251,26 @@ WindowManager:
 
 <AdditionWindow>:
     name: "addition"
-
     colsMatrix1: colsMatrix1
     rowsMatrix1: rowsMatrix1
     colsMatrix2: colsMatrix2
     rowsMatrix2: rowsMatrix2
 
-    FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
+    Image:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
 
+    FloatLayout:
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            # font_name: "Rubik"
+            font_name: "Pacifico"
+            color: utils.get_color_from_hex("#0390bb")
+            font_size: self.width/20
         Label:
             text: "Columns of 1st Matrix: "
             size_hint: 0.4, .12
@@ -309,20 +340,26 @@ WindowManager:
 
 <SubtractionWindow>:
     name: "subtraction"
-
     colsMatrix1: colsMatrix1
     rowsMatrix1: rowsMatrix1
     colsMatrix2: colsMatrix2
     rowsMatrix2: rowsMatrix2
 
-    FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
+    Image:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
 
+    FloatLayout:
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            # font_name: "Rubik"
+            font_name: "Pacifico"
+            color: utils.get_color_from_hex("#0390bb")
+            font_size: self.width/20
         Label:
             text: "Columns of 1st Matrix: "
             size_hint: 0.4, .12
@@ -392,20 +429,26 @@ WindowManager:
 
 <MultiplicationWindow>:
     name: "multiplication"
-
     colsMatrix1: colsMatrix1
     rowsMatrix1: rowsMatrix1
     colsMatrix2: colsMatrix2
     rowsMatrix2: rowsMatrix2
 
-    FloatLayout:
-        cols: 1
-        FloatLayout:
-            cols: 2
-            Label: 
-                pos_hint: {"y": 0.45}
-                text: "MATRIX CALCULATOR"
+    Image:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "images/MainWindow.png"
 
+    FloatLayout:
+        Label: 
+            text: "MATRIX CALCULATOR"
+            pos_hint: {"top":1.45, "left": 1}
+            # font_name: "Rubik"
+            font_name: "Pacifico"
+            color: utils.get_color_from_hex("#0390bb")
+            font_size: self.width/20
         Label:
             text: "Columns of 1st Matrix: "
             size_hint: 0.4, .12

@@ -4,15 +4,20 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
+from kivy.uix.button import Button, ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
+from kivy.uix.image import Image
 from kivy.properties import ObjectProperty
+from kivy.core.text import LabelBase
 from MatrixClass import Matrices, matrixAddition, matrixSubtraction, matrixMultiplication
 
+LabelBase.register(name = "Rubik", fn_regular = "Rubik/Rubik-Regular.ttf")
 
+class ImageButton(ButtonBehavior, Image):
+    pass
 class MainWindow(Screen):
     pass
 

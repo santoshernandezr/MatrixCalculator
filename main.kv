@@ -8,7 +8,6 @@ WindowManager:
     AdditionWindow:
     SubtractionWindow:
     MultiplicationWindow:
-    ThirdWindow:
 
 <MainWindow>:
     name: "main"
@@ -21,54 +20,49 @@ WindowManager:
                 size: self.size
                 source: "images/MainWindow.png"
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            font_name: "Rubik"
-            color: utils.get_color_from_hex("#FCF6F5FF")
-            font_size: self.width/20
-        ImageButton:
-            source: "images/addIcon.png"
-            pos_hint: {"center_x": .25, "center_y": .75}
-            size_hint: 1, 1
-            on_release: 
-                app.root.current = "addition"
-                root.manager.transition.direction = "left"
-        ImageButton:
-            source: "images/minusIcon.png"
-            pos_hint: {"center_x": .25, "center_y": .45}
-            size_hint: 0.35, 0.15
-            on_release: 
-                app.root.current = "subtraction"
-                root.manager.transition.direction = "left"
-        ImageButton:
-            source: "images/multiplicationIcon.png"
-            pos_hint: {"center_x": .25, "center_y": .15}
-            size_hint: 0.35, 0.15
-            on_release: 
-                app.root.current = "multiplication"
-                root.manager.transition.direction = "left"
-        ImageButton:
-            source: "images/RREFIcon.png"
-            pos_hint: {"center_x": .75, "center_y": .75}
-            size_hint: 0.35, 0.15
-            on_release: 
-                app.root.current = "RowReduce"
-                root.manager.transition.direction = "left"
-        ImageButton:
-            source: "images/transposeIcon.png"
-            pos_hint: {"center_x": .75, "center_y": .45}
-            size_hint: 0.35, 0.15
-            on_release: 
-                app.root.current = "transpose"
-                root.manager.transition.direction = "left"
-        ImageButton:
-            source: "images/inverseIcon.png"
-            pos_hint: {"center_x": .75, "center_y": .15}
-            size_hint: 0.35, 0.15
-            on_release: 
-                app.root.current = "inverse"
-                root.manager.transition.direction = "left"
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
+        GridLayout:
+            cols: 2
+            pos_hint: {"top": .8, "left": 1}
+            size_hint: 1, .8
+            ImageButton:
+                source: "images/test.png"
+                on_press: 
+                    app.root.current = "addition"
+                    root.manager.transition.direction = "left"
+            ImageButton:
+                source: "images/test4.png"
+                on_press: 
+                    app.root.current = "RowReduce"
+                    root.manager.transition.direction = "left"
+            ImageButton:
+                source: "images/test2.png"
+                on_press: 
+                    app.root.current = "subtraction"
+                    root.manager.transition.direction = "left"
+            ImageButton:
+                source: "images/test5.png"
+                on_press: 
+                    app.root.current = "transpose"
+                    root.manager.transition.direction = "left"
+            ImageButton:
+                source: "images/test3.png"
+                on_press: 
+                    app.root.current = "multiplication"
+                    root.manager.transition.direction = "left"
+            ImageButton:
+                source: "images/test6.png"
+                on_press: 
+                    app.root.current = "inverse"
+                    root.manager.transition.direction = "left"
 
 <InverseWindow>:
     name: "inverse"
@@ -77,57 +71,60 @@ WindowManager:
 
     Image:
         canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
             Rectangle:
                 pos: self.pos
                 size: self.size
                 source: "images/MainWindow.png"
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            # font_name: "Rubik"
-            font_name: "Pacifico"
-            color: utils.get_color_from_hex("#0390bb")
-            font_size: self.width/20
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
         Label:
             text: "Columns:"
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.75}
-            font_size: (root.width ** 2 + root.height ** 2) / 14 ** 4
-
+            pos_hint: {"center_x": .35, "center_y": 0.7}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: invCols
-            font_size: (root.width ** 2 + root.height ** 2) / 14.5 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.72}
+            pos_hint: {"center_x": 0.7, "top": 0.725}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
             text: "Rows:"
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.5}
-            font_size: (root.width ** 2 + root.height ** 2) / 14 ** 4
-
+            pos_hint: {"center_x": .3925, "center_y": 0.5}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: invRows
-            font_size: (root.width ** 2 + root.height ** 2) / 14.5 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.48}
+            pos_hint: {"center_x": 0.7, "top": 0.525}
             size_hint: 0.4, 0.06
-        Button: 
-            text: "Go Back"
-            size_hint: 0.2, 0.2
-            on_release: 
-                app.root.current = "main"
-                root.manager.transition.direction = "right"
-        Button: 
-            text: "Go!"
-            size_hint: 0.2, 0.2
-            pos_hint: {"x": 0.8}
-            on_press: root.makeInvGrid()
-            on_release: 
-                app.root.current = "last"
-                root.manager.transition.direction = "left"
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": .2, "left": 1}
+            size_hint: 1, .2
+            ImageButton: 
+                source: "images/backIcon.png"
+                on_press: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            ImageButton: 
+                source: "images/forwardIcon.png"
+                on_press: root.makeInvGrid()
 
 <TransposeWindow>:
     name: "transpose"
@@ -136,58 +133,60 @@ WindowManager:
 
     Image:
         canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
             Rectangle:
                 pos: self.pos
                 size: self.size
                 source: "images/MainWindow.png"
-
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            # font_name: "Rubik"
-            font_name: "Pacifico"
-            color: utils.get_color_from_hex("#0390bb")
-            font_size: self.width/20
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
         Label:
             text: "Columns:"
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.75}
-            font_size: (root.width ** 2 + root.height ** 2) / 14 ** 4
-
+            pos_hint: {"center_x": .35, "center_y": 0.7}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: transCols
-            font_size: (root.width ** 2 + root.height ** 2) / 14.5 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.72}
+            pos_hint: {"center_x": 0.7, "top": 0.725}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
             text: "Rows:"
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.5}
-            font_size: (root.width ** 2 + root.height ** 2) / 14 ** 4
-
+            pos_hint: {"center_x": .3925, "center_y": 0.5}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: transRows
-            font_size: (root.width ** 2 + root.height ** 2) / 14.5 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.48}
+            pos_hint: {"center_x": 0.7, "top": 0.525}
             size_hint: 0.4, 0.06
-        Button: 
-            text: "Go Back"
-            size_hint: 0.2, 0.2
-            on_release: 
-                app.root.current = "main"
-                root.manager.transition.direction = "right"
-        Button: 
-            text: "Go!"
-            size_hint: 0.2, 0.2
-            pos_hint: {"x": 0.8}
-            on_press: root.makeTransposeGrid()
-            on_release: 
-                app.root.current = "last"
-                root.manager.transition.direction = "left"
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": .2, "left": 1}
+            size_hint: 1, .2
+            ImageButton: 
+                source: "images/backIcon.png"
+                on_press: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            ImageButton: 
+                source: "images/forwardIcon.png"
+                on_press: root.makeTransposeGrid()
 
 <RowReduceWindow>:
     name: "RowReduce"
@@ -196,58 +195,61 @@ WindowManager:
 
     Image:
         canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
             Rectangle:
                 pos: self.pos
                 size: self.size
                 source: "images/MainWindow.png"
 
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            # font_name: "Rubik"
-            font_name: "Pacifico"
-            color: utils.get_color_from_hex("#0390bb")
-            font_size: self.width/20
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
         Label:
             text: "Columns:"
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.75}
-            font_size: (root.width ** 2 + root.height ** 2) / 14 ** 4
-
+            pos_hint: {"center_x": .35, "center_y": 0.7}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: reduceCols
-            font_size: (root.width ** 2 + root.height ** 2) / 14.5 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.72}
+            pos_hint: {"center_x": 0.7, "top": 0.725}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
             text: "Rows:"
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.5}
-            font_size: (root.width ** 2 + root.height ** 2) / 14 ** 4
-
+            pos_hint: {"center_x": .3925, "center_y": 0.5}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: reduceRows
-            font_size: (root.width ** 2 + root.height ** 2) / 14.5 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.48}
+            pos_hint: {"center_x": 0.7, "top": 0.525}
             size_hint: 0.4, 0.06
-        Button: 
-            text: "Go Back"
-            size_hint: 0.2, 0.2
-            on_release: 
-                app.root.current = "main"
-                root.manager.transition.direction = "right"
-        Button: 
-            text: "Go!"
-            size_hint: 0.2, 0.2
-            pos_hint: {"x": 0.8}
-            on_press: root.makeRowReduceGrid()
-            on_release: 
-                app.root.current = "last"
-                root.manager.transition.direction = "left"
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": .2, "left": 1}
+            size_hint: 1, .2
+            ImageButton: 
+                source: "images/backIcon.png"
+                on_press: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            ImageButton: 
+                source: "images/forwardIcon.png"
+                on_press: root.makeRowReduceGrid()
 
 <AdditionWindow>:
     name: "addition"
@@ -258,86 +260,88 @@ WindowManager:
 
     Image:
         canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
             Rectangle:
                 pos: self.pos
                 size: self.size
                 source: "images/MainWindow.png"
-
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            # font_name: "Rubik"
-            font_name: "Pacifico"
-            color: utils.get_color_from_hex("#0390bb")
-            font_size: self.width/20
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
         Label:
-            text: "Columns of 1st Matrix: "
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.83}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Columns1:"
+            pos_hint: {"center_x": .35, "center_y": 0.7}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: colsMatrix1
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.8}
+            pos_hint: {"center_x": 0.7, "top": 0.725}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
-            text: "Rows of 1st Matrix: "
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.67}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Rows1:"
+            pos_hint: {"center_x": .3925, "center_y": 0.6}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: rowsMatrix1
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.65}
+            pos_hint: {"center_x": 0.7, "top": 0.625}
             size_hint: 0.4, 0.06
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False
 
         Label:
-            text: "Columns of 2st Matrix: "
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.53}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Columns1:"
+            pos_hint: {"center_x": .35, "center_y": 0.5}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: colsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.5}
+            pos_hint: {"center_x": 0.7, "top": 0.525}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
-            text: "Rows of 1st Matrix: "
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.37}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Rows1:"
+            pos_hint: {"center_x": .3925, "center_y": 0.4}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: rowsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.35}
+            pos_hint: {"center_x": 0.7, "top": 0.425}
             size_hint: 0.4, 0.06
-            
-        Button: 
-            text: "Go Back"
-            size_hint: 0.2, 0.2
-            on_release: 
-                app.root.current = "main"
-                root.manager.transition.direction = "right"
-        Button: 
-            text: "Go!"
-            size_hint: 0.2, 0.2
-            pos_hint: {"x": 0.8}
-            on_press: root.makeAddGrid()
-            on_release: 
-                app.root.current = "last"
-                root.manager.transition.direction = "left"
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False 
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": .2, "left": 1}
+            size_hint: 1, .2
+            ImageButton: 
+                source: "images/backIcon.png"
+                on_press: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            ImageButton: 
+                source: "images/forwardIcon.png"
+                on_press: root.makeAddGrid()
+    
 <SubtractionWindow>:
     name: "subtraction"
     colsMatrix1: colsMatrix1
@@ -347,85 +351,87 @@ WindowManager:
 
     Image:
         canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
             Rectangle:
                 pos: self.pos
                 size: self.size
                 source: "images/MainWindow.png"
-
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            # font_name: "Rubik"
-            font_name: "Pacifico"
-            color: utils.get_color_from_hex("#0390bb")
-            font_size: self.width/20
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
         Label:
-            text: "Columns of 1st Matrix: "
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.83}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Columns1:"
+            pos_hint: {"center_x": .35, "center_y": 0.7}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: colsMatrix1
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.8}
+            pos_hint: {"center_x": 0.7, "top": 0.725}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
-            text: "Rows of 1st Matrix: "
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.67}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Rows1:"
+            pos_hint: {"center_x": .3925, "center_y": 0.6}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: rowsMatrix1
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.65}
+            pos_hint: {"center_x": 0.7, "top": 0.625}
             size_hint: 0.4, 0.06
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False
 
         Label:
-            text: "Columns of 2st Matrix: "
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.53}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Columns1:"
+            pos_hint: {"center_x": .35, "center_y": 0.5}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: colsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.5}
+            pos_hint: {"center_x": 0.7, "top": 0.525}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
-            text: "Rows of 1st Matrix: "
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.37}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Rows1:"
+            pos_hint: {"center_x": .3925, "center_y": 0.4}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: rowsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.35}
+            pos_hint: {"center_x": 0.7, "top": 0.425}
             size_hint: 0.4, 0.06
-            
-        Button: 
-            text: "Go Back"
-            size_hint: 0.2, 0.2
-            on_release: 
-                app.root.current = "main"
-                root.manager.transition.direction = "right"
-        Button: 
-            text: "Go!"
-            size_hint: 0.2, 0.2
-            pos_hint: {"x": 0.8}
-            on_press: root.makeSubGrid()
-            on_release: 
-                app.root.current = "last"
-                root.manager.transition.direction = "left"
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False 
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": .2, "left": 1}
+            size_hint: 1, .2
+            ImageButton: 
+                source: "images/backIcon.png"
+                on_press: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            ImageButton: 
+                source: "images/forwardIcon.png"
+                on_press: root.makeSubGrid()
 
 <MultiplicationWindow>:
     name: "multiplication"
@@ -436,99 +442,83 @@ WindowManager:
 
     Image:
         canvas:
+            Color:
+                rgb: utils.get_color_from_hex("#2D2926FF")
             Rectangle:
                 pos: self.pos
                 size: self.size
                 source: "images/MainWindow.png"
-
     FloatLayout:
-        Label: 
-            text: "MATRIX CALCULATOR"
-            pos_hint: {"top":1.45, "left": 1}
-            # font_name: "Rubik"
-            font_name: "Pacifico"
-            color: utils.get_color_from_hex("#0390bb")
-            font_size: self.width/20
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: 1, .2
+            Label: 
+                text: "Matrix Calculator"
+                pos_hint: {"top":1.43, "left": 1}
+                font_name: "Rubik"
+                font_size: self.width/16
         Label:
-            text: "Columns of 1st Matrix: "
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.83}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Columns1:"
+            pos_hint: {"center_x": .35, "center_y": 0.7}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: colsMatrix1
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.8}
+            pos_hint: {"center_x": 0.7, "top": 0.725}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
-            text: "Rows of 1st Matrix: "
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.67}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Rows1:"
+            pos_hint: {"center_x": .3925, "center_y": 0.6}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: rowsMatrix1
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.65}
+            pos_hint: {"center_x": 0.7, "top": 0.625}
             size_hint: 0.4, 0.06
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False
 
         Label:
-            text: "Columns of 2st Matrix: "
-            size_hint: 0.4, .12
-            pos_hint: {"x": 0.15, "top": 0.53}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Columns1:"
+            pos_hint: {"center_x": .35, "center_y": 0.5}
+            size_hint: 0.65, .3
+            font_size: self.width/12
         TextInput:
             id: colsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.5}
+            pos_hint: {"center_x": 0.7, "top": 0.525}
             size_hint: 0.4, 0.06
-
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False  
         Label:
-            text: "Rows of 1st Matrix: "
-            size_hint: 0.4, .1
-            pos_hint: {"x": 0.17, "top": 0.37}
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-
+            text: "Rows1:"
+            pos_hint: {"center_x": .3925, "center_y": 0.4}
+            size_hint: 0.65, .3
+            font_name: "Rubik"
+            font_size: self.width/12
         TextInput:
             id: rowsMatrix2
-            font_size: (root.width ** 2 + root.height ** 2) / 15 ** 4
-            multiline: False
-            pos_hint: {"x": 0.5, "top": 0.35}
+            pos_hint: {"center_x": 0.7, "top": 0.425}
             size_hint: 0.4, 0.06
-            
-        Button: 
-            text: "Go Back"
-            size_hint: 0.2, 0.2
-            on_release: 
-                app.root.current = "main"
-                root.manager.transition.direction = "right"
-        Button: 
-            text: "Go!"
-            size_hint: 0.2, 0.2
-            pos_hint: {"x": 0.8}
-            on_press: root.makeMultGrid()
-            on_release: 
-                app.root.current = "last"
-                root.manager.transition.direction = "left"
-    
-<ThirdWindow>
-    name: "last"
-    Button: 
-        text: "Go Back"
-        size_hint: 0.2, 0.2
-        on_release: 
-            app.root.current = "main"
-            root.manager.transition.direction = "right"
-
-    Button: 
-        text: "Done"
-        size_hint: 0.2, 0.2
-        pos_hint: {"x": 0.8}
-        on_release: 
-            app.root.current = "main"
-            root.manager.transition.direction = "right"
+            font_name: "Rubik"
+            font_size: (root.width ** 2 + root.height ** 2) / 12 ** 4
+            multiline: False 
+        GridLayout:
+            rows: 1
+            pos_hint: {"top": .2, "left": 1}
+            size_hint: 1, .2
+            ImageButton: 
+                source: "images/backIcon.png"
+                on_press: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+            ImageButton: 
+                source: "images/forwardIcon.png"
+                on_press: root.makeMultGrid()

@@ -18,6 +18,7 @@ LabelBase.register(name = "Rubik", fn_regular = "Rubik/Rubik-Regular.ttf")
 
 class ImageButton(ButtonBehavior, Image):
     pass
+
 class MainWindow(Screen):
     pass
 
@@ -31,7 +32,7 @@ class TransposeWindow(Screen):
         If they do it will warn them, if not it will call makeMatrix 
         """
         if self.transCols.text == "" or self.transRows.text == "":
-            errorModal('You left something blank. Please fill everything out.')
+            errorModal('You left something blank. \nPlease fill everything out.')
         else:
             makeMatrix(int(self.transCols.text), int(self.transRows.text), "Transpose")
     
@@ -48,13 +49,13 @@ class InverseWindow(Screen):
         If something is blank or it's not a square matrix then it will warn them. If everything is fine then it will call makeMatrix
         """
         if self.invCols.text == "" or self.invRows.text == "":
-            errorModal('You left something blank. Please fill everything out.')
+            errorModal('You left something blank. \nPlease fill everything out.')
         elif int(self.invCols.text) != int(self.invRows.text):
-            errorModal('This is not a square matrix, so this matrix has no inverse.')
+            errorModal('This is not a square matrix, \nso this matrix has no inverse.')
         else:
             makeMatrix(int(self.invCols.text), int(self.invRows.text), "Invert")
 
-        print(self.invCols.text, self.invRows.text)
+        # print(self.invCols.text, self.invRows.text)
         self.invCols.text = ""
         self.invRows.text = ""
 
@@ -67,7 +68,7 @@ class RowReduceWindow(Screen):
         This function will make the Row Reduce Grid.
         """
         makeMatrix(int(self.reduceCols.text), int(self.reduceRows.text), "Row Reduce")
-        print(self.reduceCols.text, self.reduceRows.text)
+        # print(self.reduceCols.text, self.reduceRows.text)
         self.reduceCols.text = ""
         self.reduceRows.text = ""
 
@@ -79,13 +80,13 @@ class AdditionWindow(Screen):
 
     def makeAddGrid(self):
         if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
-            errorModal('You left something blank. Please fill everything out.')
+            errorModal('You left something blank. \nPlease fill everything out.')
         elif int(self.colsMatrix1.text) != int(self.colsMatrix2.text) or int(self.rowsMatrix1.text) != int(self.rowsMatrix2.text):
-            errorModal('In order to add matrices they have to be the same \ndimension. Re-enter new dimensions.')
+            errorModal('In order to add matrices they \nhave to be the same dimension. \nRe-enter new dimensions.')
         else:
             makeDoubleMatrix(None, int(self.colsMatrix1.text), int(self.rowsMatrix1.text), None, None, "First Matrix", True, False, False)
 
-        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
+        # print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
         self.colsMatrix1.text = ""
         self.rowsMatrix1.text = ""
         self.colsMatrix2.text = ""
@@ -99,13 +100,13 @@ class SubtractionWindow(Screen):
 
     def makeSubGrid(self):
         if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
-            errorModal('You left something blank. Please fill everything out.')
+            errorModal('You left something blank. \nPlease fill everything out.')
         elif int(self.colsMatrix1.text) != int(self.colsMatrix2.text) or int(self.rowsMatrix1.text) != int(self.rowsMatrix2.text):
-            errorModal('In order to subtract matrices they have to be the same \ndimension. Re-enter new dimensions.')
+            errorModal('In order to subtract matrices they \nhave to be the same dimension. \nRe-enter new dimensions.')
         else:
             makeDoubleMatrix(None, int(self.colsMatrix1.text), int(self.rowsMatrix1.text), None, None, "First Matrix", False, True, False)
 
-        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
+        # print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
         self.colsMatrix1.text = ""
         self.rowsMatrix1.text = ""
         self.colsMatrix2.text = ""
@@ -119,20 +120,17 @@ class MultiplicationWindow(Screen):
 
     def makeMultGrid(self):
         if self.colsMatrix1.text == "" or self.rowsMatrix1.text == "" or self.colsMatrix2.text == "" or self.rowsMatrix2.text == "":
-            errorModal('You left something blank. Please fill everything out.')
+            errorModal('You left something blank. \nPlease fill everything out.')
         elif int(self.colsMatrix1.text) != int(self.rowsMatrix2.text):
-            errorModal("The columns of the first matrix has to be equal \nto the rows in the second Matrix.")
+            errorModal("To multiply matrices, the columns \nof the first matrix have to be equal \nto the rows in the second Matrix.")
         else:
             makeDoubleMatrix(None, int(self.colsMatrix1.text), int(self.rowsMatrix1.text), int(self.colsMatrix2.text), int(self.rowsMatrix2.text), "First Matrix", False, False, True)
 
-        print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
+        # print(self.colsMatrix1.text, self.rowsMatrix1.text, self.colsMatrix2.text, self.rowsMatrix2.text)
         self.colsMatrix1.text = ""
         self.rowsMatrix1.text = ""
         self.colsMatrix2.text = ""
         self.rowsMatrix2.text = ""
-
-class ThirdWindow(Screen):
-    pass
 
 class WindowManager(ScreenManager):
     pass
@@ -169,7 +167,7 @@ def makeDoubleMatrix(matrix, myCols, myRows, myCols1, myRows1, operation, add, s
             inside.add_widget(gridNums)
 
     layout.add_widget(inside)
-    closeBtn = Button(text = operation, size_hint = (1, 0.3))
+    closeBtn = Button(text = operation, font_name = "Rubik", size_hint = (1, 0.3))
 
     if add == True:
         if operation == "First Matrix":
@@ -190,8 +188,8 @@ def makeDoubleMatrix(matrix, myCols, myRows, myCols1, myRows1, operation, add, s
     layout.add_widget(closeBtn)
     box = BoxLayout(orientation = "horizontal")
     box.add_widget(layout)
-    popupWindow = Popup(title = "Your first Matrix", content = box, auto_dismiss = True,
-                        size_hint = (None, None), size = (400, 400))
+    popupWindow = Popup(title = "First Matrix", title_font = "Rubik", title_align = "center", content = box, auto_dismiss = True,
+                        size_hint = (None, None), size = (250, 250))
     popupWindow.open()
 
 def getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, secondMatrix, operation, add, sub, mult):
@@ -209,19 +207,19 @@ def getDoubleMatrix(userInputs, myCols, myRows, myCols1, myRows1, secondMatrix, 
     if mult == True:
         if secondMatrix == None:
             if len(matrix) != (myCols * myRows):
-                errorModal('You left something blank. Please fill everything out.')
+                errorModal('You left something blank. \nPlease fill everything out.')
             else:
                 makeDoubleMatrix(matrix, myCols, myRows, myCols1, myRows1, "Multiply", False, False, True)
         else:
             if len(matrix) != (myCols1 * myRows1):
-                errorModal('You left something blank. Please fill everything out.')
+                errorModal('You left something blank. \nPlease fill everything out.')
             else:
                 first = Matrices(secondMatrix, myCols, myRows)
                 second = Matrices(matrix, myCols1, myRows1)
                 getResult(myCols1, myRows, matrixMultiplication(first.Matrix, second.Matrix))
     else:
         if len(matrix) != (myCols * myRows):
-            errorModal('You left something blank. Please fill everything out.')
+            errorModal('You left something blank. \nPlease fill everything out.')
         else:
             if add == True:
                 if operation == "First Matrix":
@@ -252,15 +250,17 @@ def getMatrix(userInputs, myCols, myRows, operation):
         else:
             matrix.append(int(nums.text))
     if len(matrix) != (myCols * myRows):
-        errorModal('You left something blank. Please fill everything out.')
+        errorModal('You left something blank. \nPlease fill everything out.')
     else:
         first = Matrices(matrix, myCols, myRows)
         if operation == "Transpose":
             getResult(myCols, myRows, first.transpose())
         elif operation == "Invert":
             if first.inverse() == "Determinant":
-                errorModal('The determinant is 0, so this matrix has no inverse')
+                errorModal('The determinant is 0, \nso this matrix has no inverse')
             else: 
+                print("This is the matrix the user put in: ", matrix)
+                print("This is my inverse: ", first.inverse())
                 getResult(myCols, myRows, first.inverse())
         elif operation == "Row Reduce":
             myMatrix = first.rowReduce()
@@ -281,20 +281,23 @@ def getResult(myCols, myRows, myMatrix):
     """
     layout = GridLayout(cols = 1)
     inside = GridLayout(cols = myCols)
+    print("This is my matrix: ", myMatrix)
+    print("myCols: ", myCols)
+    print("myRows:", myRows)
     for matrix in myMatrix:
         for nums in matrix:
-            gridNums = Label(text = str(format(nums, '.2f')))
+            gridNums = Label(text = str(format(float(nums), '.2f')))
             inside.add_widget(gridNums)
 
     layout.add_widget(inside)
-    closeBtn = Button(text = "Close", size_hint = (1, 0.3))
+    closeBtn = Button(text = "Close", font_name = "Rubik", size_hint = (1, 0.3))
     layout.add_widget(closeBtn)
 
     box = BoxLayout(orientation = "horizontal")
     box.add_widget(layout)
 
-    popupWindow = Popup(title = "Your first Matrix", content = box, auto_dismiss = True,
-                        size_hint = (None, None), size = (400, 400))
+    popupWindow = Popup(title = "Final Matrix", title_font = "Rubik", title_align = "center", content = box, auto_dismiss = True,
+                        size_hint = (None, None), size = (250, 250))
 
     closeBtn.bind(on_press = popupWindow.dismiss)
     popupWindow.open()
@@ -308,23 +311,23 @@ def makeMatrix(myCols, myRows, operation):
     layout = GridLayout(cols = 1)
     inside = GridLayout(cols = myCols)
     for i in range(myRows * myCols):
-        gridNums = TextInput(text = "")
+        gridNums = TextInput(text = "", font_name = "Rubik", halign = "center")
         userInputs.append(gridNums)
         inside.add_widget(gridNums)
     
-    print("This is the list: ", userInputs)
+    # print("This is the list: ", userInputs)
 
     layout.add_widget(inside)
 
-    closeBtn = Button(text = operation, size_hint = (1, 0.3))
+    closeBtn = Button(text = operation, font_name = "Rubik", size_hint = (1, 0.3))
     closeBtn.bind(on_press = lambda x: getMatrix(userInputs, myCols, myRows, operation))
     layout.add_widget(closeBtn)
 
     box = BoxLayout(orientation = "horizontal")
     box.add_widget(layout)
 
-    popupWindow = Popup(title = "Your first Matrix", content = box, auto_dismiss = True,
-                        size_hint = (None, None), size = (400, 400))
+    popupWindow = Popup(title = "First Matrix", title_font = "Rubik", title_align = "center", content = box, auto_dismiss = True,
+                        size_hint = (None, None), size = (250, 250))
 
     popupWindow.open()
 
@@ -333,11 +336,11 @@ def errorModal(msg):
     This function will make a popup with the message of the users choice
     """
     box = BoxLayout(orientation = "vertical")
-    box.add_widget(Label(text = msg))
-    closeBtn = Button(text = 'Close', size_hint = (1, 0.3))
+    box.add_widget(Label(text = msg, halign = "center", font_name = "Rubik"))
+    closeBtn = Button(text = 'Close', font_name = "Rubik", size_hint = (1, 0.3))
     box.add_widget(closeBtn)
-    popupWindow = Popup(title = "Oops!", content = box, auto_dismiss = False,
-                        size_hint = (None, None), size = (400, 400))
+    popupWindow = Popup(title = "Oops!", title_font = "Rubik", title_align = "center", content = box, auto_dismiss = False, 
+                        size_hint = (None, None), size = (250, 250))
     closeBtn.bind(on_press = popupWindow.dismiss)
     popupWindow.open()
 

@@ -20,7 +20,7 @@ class Matrices:
             else:
                 columns.append(myMatrix[i-1])
         
-        # print("This is my matrix: ", self.Matrix)
+        print("This is my matrix: ", self.Matrix)
         
     def transpose(self):
         """
@@ -38,30 +38,13 @@ class Matrices:
         """ 
         This will find return the inverse of the users matrix if there is one
         """
-        if self.rows != self.columns:
-            return "Square"
-        elif self.rows == 2 and self.columns == 2: # 1st case where we have a 2x2 matrix, we can just use the determinant 
-            determinant = 1/((self.Matrix[1][1] * self.Matrix[0][0]) - (self.Matrix[0][1] * self.Matrix[1][0])) # finding the determinant which is 1/ad-bc
-            if determinant != 0:
-                swapMatrix = [[self.Matrix[1][1], -1 * self.Matrix[0][1]], [-1 * self.Matrix[1][0], self.Matrix[0][0]]] # our swapped matrix
-                for i in range(self.rows):
-                    matrix = []
-                    for j in range(self.columns):
-                        matrix.append(format(determinant * swapMatrix[i][j], '.2f')) # we format the number to two decimal places
-                    self.Inverse.append(matrix)
-                # print("This is the inverse of your matrix: ", self.Inverse)
-                return self.Inverse
-            else:
-                # print("Sorry, the determinant is 0 and we cannot divide by 0.")
-                return "Determinant"
+        myMatrix = np.array(self.Matrix)
+        if np.linalg.det(myMatrix) == 0:
+            # print("This matrix has a determinant of 0, meaning it has no inverse")
+            return "Determinant"
         else:
-            myMatrix = np.array(self.Matrix)
-            if np.linalg.det(myMatrix) == 0:
-                # print("This matrix has a determinant of 0, meaning it has no inverse")
-                return "Determinant"
-            else:
-                self.Inverse = np.linalg.inv(myMatrix)
-            return self.Inverse
+            self.Inverse = np.linalg.inv(myMatrix)
+        return self.Inverse
 
     def rowReduce(self):
         """

@@ -28,40 +28,18 @@ class Matrices:
             for j in range(self.rows): # This for loop makes the columns we need in our transposed matrix
                     matrix.append(self.Matrix[j][i]) 
             self.Transpose.append(matrix) # Appending the rows into the bigger list we created
-
-        return self.Transpose
-        # print("This is your transposed matrix: ", self.Transpose)
+        print("This is your transposed matrix: ", self.Transpose)
         
     def inverse(self):
         """ 
-        This will find the inverse of a matrix if there is one
+        This will find return the inverse of the users matrix if there is one
         """
-        if self.rows != self.columns:
-            print("Sorry, this is not a square matrix so it does not have an inverse")
-            return "Square"
-        elif self.rows == 2 and self.columns == 2: # 1st case where we have a 2x2 matrix, we can just use the determinant 
-            determinant = 1/((self.Matrix[1][1] * self.Matrix[0][0]) - (self.Matrix[0][1] * self.Matrix[1][0])) # finding the determinant which is 1/ad-bc
-            if determinant != 0:
-                swapMatrix = [[self.Matrix[1][1], -1 * self.Matrix[0][1]], [-1 * self.Matrix[1][0], self.Matrix[0][0]]] # our swapped matrix
-                for i in range(self.rows):
-                    matrix = []
-                    for j in range(self.columns):
-                        matrix.append(format(determinant * swapMatrix[i][j], '.2f')) # we format the number to two decimal places
-                    self.Inverse.append(matrix)
-                print("This is the inverse of your matrix: ", self.Inverse)
-                return self.Inverse
-            else:
-                print("Sorry, the determinant is 0 and we cannot divide by 0.")
-                return "Determinant"
+        myMatrix = np.array(self.Matrix)
+        if np.linalg.det(myMatrix) == 0:
+            print("This matrix has a determinant of 0, meaning it has no inverse")
         else:
-            myMatrix = np.array(self.Matrix)
-            if np.linalg.det(myMatrix) == 0:
-                print("This matrix has a determinant of 0, meaning it has no inverse")
-                return "Determinant"
-            else:
-                self.Inverse = np.linalg.inv(myMatrix)
-                print("This is the inverse of your function: \n", np.around(self.Inverse, decimals = 2))
-            return self.Inverse
+            self.Inverse = np.linalg.inv(myMatrix)
+            print("This is the inverse to your matrix: ", self.Inverse)
 
     def rowReduce(self):
         """
